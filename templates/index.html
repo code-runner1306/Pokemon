@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block body %}{% load static %}
+<div class="container">
+  <form action="/" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Pokemon Details</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+      />
+      <div id="emailHelp" class="form-text">Gotta Catch'em All!</div>
+    </div>
+    <button type="submit" name="poke" value="Normal" class="btn btn-primary">
+      Normal Pokemon
+    </button>
+    <button type="submit" name="poke" value="Shiny" class="btn btn-primary">
+      Shiny Pokemon
+    </button>
+  </form>
+</div>
+<br />
+<div class="container d-flex justify-content-between">
+  <!-- Left side: Pokemon information -->
+  <div class="content">
+    {% if pokeinfo %}
+    <h2>Pokemon: {{ pokeinfo.name }}</h2>
+    <h3>Abilities:</h3>
+    <ul>
+      {% if pokeinfo.abilities %} {% for ability in pokeinfo.abilities %}
+      <li>
+        {{ ability.ability_name }} {% if ability.is_hidden %}(Hidden
+        Ability){%endif %}
+      </li>
+      {% endfor %} {% else %}
+      <p>No abilities available.</p>
+      {% endif %}
+    </ul>
+    <h3>Typing:</h3>
+    <ul>
+      {% for types in pokeinfo.typing %}
+      <li>{{ types.type }}</li>
+      {% endfor %}
+    </ul>
+    <h3>MoveSet:</h3>
+    <ul>
+      {% for moves in pokeinfo.moveset %}
+      <li>{{ moves.move }} is learned at level {{ moves.level_learned_at }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No data available. Please try again.</p>
+    {% endif %}
+  </div>
+
+  <!-- Right side: Pokemon image -->
+  <div class="image-container">
+    {% if pokeinfo.name %} {% if Shiny %}
+    <img
+      src="{% static 'ani-front-shiny/' %}{{ pokeinfo.name }}.gif"
+      alt="{{ pokeinfo.name }}"
+    />
+    {% else %}
+    <img
+      src="{% static 'ani-front/' %}{{ pokeinfo.name }}.gif"
+      alt="{{ pokeinfo.name }}"
+    />
+    {% endif %} {% else %}
+    <p>No Pokémon selected yet.</p>
+    {% endif %}
+  </div>
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+-->
+  {% endblock body %}
+</div>
