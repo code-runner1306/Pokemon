@@ -24,31 +24,17 @@ Follow these steps to set up the project on your local machine:
    cd pokemon-django-app
    ```
 
-2. **Set Up a Virtual Environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # For Windows, use `venv\Scripts\activate`
-   ```
-
-3. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configure the Project:**
-   - Create a `.env` file (if required) to store API keys or other configurations.
-
-5. **Run Migrations:**
+2. **Run Migrations:**
    ```bash
    python manage.py migrate
    ```
 
-6. **Start the Development Server:**
+3. **Start the Development Server:**
    ```bash
    python manage.py runserver
    ```
 
-7. **Access the Application:**
+4. **Access the Application:**
    Open your browser and navigate to `http://127.0.0.1:8000/`.
 
 ## Usage
